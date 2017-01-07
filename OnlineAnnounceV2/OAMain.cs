@@ -70,14 +70,14 @@ namespace OnlineAnnounceV2
 		private void OnLogin(PlayerPostLoginEventArgs args)
 		{
 			string greet = DB.SetInfo(args.Player);
-			if (greet != "")
+			if (!string.IsNullOrWhiteSpace(greet))
 				TSPlayer.All.SendMessage($"[{args.Player.User.Name}] " + greet, config.ToColor());
 		}
 
 		private void OnLogout(PlayerLogoutEventArgs args)
 		{
 			string leave = args.Player.GetData<OAInfo>(OAString).leave;
-			if (leave != "")
+			if (!string.IsNullOrWhiteSpace(leave))
 				TSPlayer.All.SendMessage($"[{args.Player.User.Name}] " + leave, config.ToColor());
 		}
 

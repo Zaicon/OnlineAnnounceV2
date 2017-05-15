@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using TerrariaApi.Server;
 using TShockAPI;
@@ -12,7 +9,7 @@ using TShockAPI.Hooks;
 
 namespace OnlineAnnounceV2
 {
-	[ApiVersion(2,0)]
+	[ApiVersion(2,1)]
 	public class OAMain : TerrariaPlugin
 	{
 		#region PluginInfo

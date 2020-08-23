@@ -141,7 +141,7 @@ namespace OnlineAnnounceV2
 
 		private void OARead(CommandArgs args)
 		{
-            bool isGreet = args.Message.StartsWith("readgreet");
+			bool isGreet = args.Message.StartsWith("readgreet");
 
 			if (args.Parameters.Count == 0)
 			{
@@ -171,7 +171,7 @@ namespace OnlineAnnounceV2
 
 		private void OASet(CommandArgs args)
 		{
-            bool isGreet = args.Message.StartsWith("setgreet");
+			bool isGreet = args.Message.StartsWith("setgreet");
 
 			if (args.Parameters.Count < 2)
 			{

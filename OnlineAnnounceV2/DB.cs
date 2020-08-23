@@ -42,7 +42,7 @@ namespace OnlineAnnounceV2
 			}
 
 			SqlTableCreator sqlcreator = new SqlTableCreator(db, db.GetSqlType() == SqlType.Sqlite ? (IQueryBuilder)new SqliteQueryCreator() : new MysqlQueryCreator());
-
+            
 			sqlcreator.EnsureTableStructure(new SqlTable("onlineannounce",
 				new SqlColumn("userid", MySqlDbType.Int32) { Primary = true, Unique = true, Length = 6 },
 				new SqlColumn("greet", MySqlDbType.Text) { Length = 100 },
@@ -60,17 +60,17 @@ namespace OnlineAnnounceV2
 
 		public static void UpdateAnnouncement(OAInfo info)
 		{
-			int result = db.Query("UPDATE `onlineannounce` SET `greet` = @0, `leaving` = @1 WHERE `userid` = @2; ", info.greet, info.leave, info.userid);
+            int result = db.Query("UPDATE `onlineannounce` SET `greet` = @0, `leaving` = @1 WHERE `userid` = @2; ", info.greet, info.leave, info.userid);
 
             if (result != 1)
 			{
 				TShock.Log.ConsoleError("Error updating entry in database for user: " + info.userid);
 			}
-		}
+		} 
 
-		public static void DeleteAnnouncement(int userid)
+        public static void DeleteAnnouncement(int userid)
 		{
-			int result = db.Query("DELETE FROM `onlineannounce` WHERE `userid` = @0;", userid);
+            int result = db.Query("DELETE FROM `onlineannounce` WHERE `userid` = @0;", userid);
 			if (result != 1)
 			{
 				TShock.Log.ConsoleError("Error deleting entry in database for user: " + userid);
@@ -79,7 +79,7 @@ namespace OnlineAnnounceV2
 
 		public static string SetInfo(TSPlayer plr)
 		{
-			//Using null to signify that it was not in database
+            //Using null to signify that it was not in database
 			OAInfo newInfo = new OAInfo(plr.Account.ID, false, null, null);
 
 			using (var reader = db.QueryReader("SELECT * FROM `onlineannounce` WHERE `userid` = @0;", plr.Account.ID))

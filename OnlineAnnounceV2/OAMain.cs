@@ -68,14 +68,14 @@ namespace OnlineAnnounceV2
 		{
 			string greet = DB.SetInfo(args.Player);
 			if (!string.IsNullOrWhiteSpace(greet))
-				TSPlayer.All.SendMessage($"[{args.Player.User.Name}] " + greet, config.ToColor());
+				TSPlayer.All.SendMessage($"[{args.Player.Account.Name}] " + greet, config.ToColor());
 		}
 
 		private void OnLogout(PlayerLogoutEventArgs args)
 		{
 			string leave = args.Player.GetData<OAInfo>(OAString).leave;
 			if (!string.IsNullOrWhiteSpace(leave))
-				TSPlayer.All.SendMessage($"[{args.Player.User.Name}] " + leave, config.ToColor());
+				TSPlayer.All.SendMessage($"[{args.Player.Account.Name}] " + leave, config.ToColor());
 		}
 
 		private void OnReload(ReloadEventArgs args)
@@ -141,7 +141,7 @@ namespace OnlineAnnounceV2
 
 		private void OARead(CommandArgs args)
 		{
-			bool isGreet = args.Message.StartsWith("readgreet") ? true : false;
+            bool isGreet = args.Message.StartsWith("readgreet");
 
 			if (args.Parameters.Count == 0)
 			{
@@ -151,7 +151,7 @@ namespace OnlineAnnounceV2
 
 			string playerName = string.Join(" ", args.Parameters);
 
-			var pList = TShock.Utils.FindPlayer(playerName);
+			var pList = TSPlayer.FindByNameOrID(playerName);
 
 			if (pList.Count == 0)
 			{
@@ -160,7 +160,7 @@ namespace OnlineAnnounceV2
 			}
 			if (pList.Count > 1)
 			{
-				TShock.Utils.SendMultipleMatchError(args.Player, pList.Select(e => e.Name));
+				args.Player.SendMultipleMatchError(pList.Select(e => e.Name));
 				return;
 			}
 			OAInfo info = pList[0].GetData<OAInfo>(OAString);
@@ -171,7 +171,7 @@ namespace OnlineAnnounceV2
 
 		private void OASet(CommandArgs args)
 		{
-			bool isGreet = args.Message.StartsWith("setgreet") ? true : false;
+            bool isGreet = args.Message.StartsWith("setgreet");
 
 			if (args.Parameters.Count < 2)
 			{
@@ -182,7 +182,7 @@ namespace OnlineAnnounceV2
 			string playerName = args.Parameters[0];
 			string message = string.Join(" ", args.Parameters.GetRange(1, args.Parameters.Count - 1));
 
-			var pList = TShock.Utils.FindPlayer(playerName);
+			var pList = TSPlayer.FindByNameOrID(playerName);
 
 			if (pList.Count == 0)
 			{
@@ -191,7 +191,7 @@ namespace OnlineAnnounceV2
 			}
 			if (pList.Count > 1)
 			{
-				TShock.Utils.SendMultipleMatchError(args.Player, pList.Select(e => e.Name));
+				args.Player.SendMultipleMatchError(pList.Select(e => e.Name));
 				return;
 			}
 			OAInfo info = pList[0].GetData<OAInfo>(OAString);

@@ -51,7 +51,7 @@ namespace OnlineAnnounceV2
 
 		public static void AddAnnouncement(OAInfo info)
 		{
-            int result = db.Query("INSERT INTO `onlineannounce` (`userid`, `greet`, `leaving`) VALUES (@0, @1, @2);", info.userid, info.greet, info.leave);
+            		int result = db.Query("INSERT INTO `onlineannounce` (`userid`, `greet`, `leaving`) VALUES (@0, @1, @2);", info.userid, info.greet, info.leave);
 			if (result != 1)
 			{
 				TShock.Log.ConsoleError("Error adding entry to database for user: " + info.userid);
@@ -60,17 +60,17 @@ namespace OnlineAnnounceV2
 
 		public static void UpdateAnnouncement(OAInfo info)
 		{
-            int result = db.Query("UPDATE `onlineannounce` SET `greet` = @0, `leaving` = @1 WHERE `userid` = @2; ", info.greet, info.leave, info.userid);
+            		int result = db.Query("UPDATE `onlineannounce` SET `greet` = @0, `leaving` = @1 WHERE `userid` = @2; ", info.greet, info.leave, info.userid);
 
-            if (result != 1)
+            		if (result != 1)
 			{
 				TShock.Log.ConsoleError("Error updating entry in database for user: " + info.userid);
 			}
 		} 
 
-        public static void DeleteAnnouncement(int userid)
+        	public static void DeleteAnnouncement(int userid)
 		{
-            int result = db.Query("DELETE FROM `onlineannounce` WHERE `userid` = @0;", userid);
+           		int result = db.Query("DELETE FROM `onlineannounce` WHERE `userid` = @0;", userid);
 			if (result != 1)
 			{
 				TShock.Log.ConsoleError("Error deleting entry in database for user: " + userid);
@@ -79,7 +79,7 @@ namespace OnlineAnnounceV2
 
 		public static string SetInfo(TSPlayer plr)
 		{
-            //Using null to signify that it was not in database
+            		//Using null to signify that it was not in database
 			OAInfo newInfo = new OAInfo(plr.Account.ID, false, null, null);
 
 			using (var reader = db.QueryReader("SELECT * FROM `onlineannounce` WHERE `userid` = @0;", plr.Account.ID))

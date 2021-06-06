@@ -14,7 +14,7 @@ namespace OnlineAnnounceV2
 
 		public static string Specfier(this bool isSilent)
 		{
-			return isSilent ? TShock.Config.CommandSilentSpecifier : TShock.Config.CommandSpecifier;
+			return isSilent ? TShock.Config.Settings.CommandSilentSpecifier : TShock.Config.Settings.CommandSpecifier;
 		}
 
 		public static string OAType(this bool isGreet)
